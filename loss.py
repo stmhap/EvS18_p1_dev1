@@ -1,3 +1,8 @@
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from tqdm.auto import tqdm
+
 def dice_loss(pred, target):
     smooth = 1e-5
     
@@ -11,11 +16,6 @@ def dice_loss(pred, target):
     dice = (2. * intersection + smooth) / (union + smooth)
     
     return 1 - dice  
-
-
-import torch
-import torch.nn as nn
-
 
 def dice_loss_fn(pred,target,n_classes=3):
   smooth = 0.001
