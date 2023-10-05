@@ -20,7 +20,7 @@ def dice_loss(pred, target):
 def dice_loss_fn(pred,target,n_classes=3):
   smooth = 0.001
   pred = F.softmax(pred,dim=1).float().flatten(0,1) # (96,128,128)-> 3 * 32
-  target = F.one_hot(target, n_classes).squeeze(1).permute(0, 3, 1, 2).float().flatten(0,1) # (96,128,128) -> 3 * 32
+  target = F.one_hot(target.to(torch.int64), n_classes).squeeze(1).permute(0, 3, 1, 2).float().flatten(0,1) # (96,128,128) -> 3 * 32
   assert pred.size() == pred.size(), "sizes do not match"
 
   intersection = 2 * (pred * target).sum(dim=(-1, -2)) # 96
